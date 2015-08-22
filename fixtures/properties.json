@@ -1,0 +1,39 @@
+[
+  {"name": "Rosedale", "colour": "blue", "value": 4},
+  {"name": "Yorkville", "colour": "blue", "value": 4},
+
+  {"name": "Forest Hill", "colour": "green", "value": 4},
+  {"name": "York Mills", "colour": "green", "value": 4},
+  {"name": "Summerhill", "colour": "green", "value": 4},
+
+  {"name": "Leaside", "colour": "red", "value": 3},
+  {"name": "Casa Loma", "colour": "red", "value": 3},
+  {"name": "CityPlace", "colour": "red", "value": 3},
+
+  {"name": "The Beaches", "colour": "yellow", "value": 3},
+  {"name": "Financial", "colour": "yellow", "value": 3},
+  {"name": "The Annex", "colour": "yellow", "value": 3},
+
+  {"name": "Fashion", "colour": "orange", "value": 2},
+  {"name": "Davisville", "colour": "orange", "value": 2},
+  {"name": "Bloor West Village", "colour": "orange", "value": 2},
+
+  {"name": "Corktown", "colour": "pink", "value": 2},
+  {"name": "Cabbagetown", "colour": "pink", "value": 2},
+  {"name": "Don Mills", "colour": "pink", "value": 2},
+
+  {"name": "Roncesvalles", "colour": "lightblue", "value": 1},
+  {"name": "Bayview Village", "colour": "lightblue", "value": 1},
+  {"name": "High Park", "colour": "lightblue", "value": 1},
+
+  {"name": "Liberty Village", "colour": "brown", "value": 1},
+  {"name": "Church Wellesley", "colour": "brown", "value": 1},
+
+  {"name": "Toronto Hydro", "colour": "util", "value": 2},
+  {"name": "Hydro One", "colour": "util", "value": 2},
+
+  {"name": "Exhibition", "colour": "rail", "value": 2},
+  {"name": "Union", "colour": "rail", "value": 2},
+  {"name": "Downsview", "colour": "rail", "value": 2},
+  {"name": "Finch", "colour": "rail", "value": 2}
+]

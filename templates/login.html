@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Pick an username</h1>
+<form id="session" action="session" method="POST">
+    <input type="text" name="name" autocomplete="off"/>
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}

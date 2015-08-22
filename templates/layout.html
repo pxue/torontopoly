@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cards.css' )}}"/>
+    <style type="text/css">
+        div#log {
+            border: 2px solid #EEE;
+            height: 600px;
+            padding: 5px 20px 10px 40px;
+            margin-bottom: 20px;
+            overflow-y: scroll;
+            overflow-x: scroll;
+        }
+
+        form#chat textarea {
+            width: 500px;
+            height: 50px;
+        }
+    </style>
+</head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+</html>

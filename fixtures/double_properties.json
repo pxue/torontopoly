@@ -1,0 +1,11 @@
+[
+  {"name": "b/g", "primary": "blue", "secondary": "green", "value": 4},
+  {"name": "g/rail", "primary": "green", "secondary": "rail", "value": 4},
+  {"name": "lb/rail", "primary": "lightblue", "secondary": "rail", "value": 4},
+  {"name": "r/y", "primary": "red", "secondary": "yellow", "value": 3},
+  {"name": "r/y", "primary": "red", "secondary": "yellow", "value": 3},
+  {"name": "o/p", "primary": "orange", "secondary": "pink", "value": 2},
+  {"name": "o/p", "primary": "orange", "secondary": "pink", "value": 2},
+  {"name": "lb/br", "primary": "lightblue", "secondary": "brown", "value": 2},
+  {"name": "util/rail", "primary": "util", "secondary": "rail", "value": 1}
+]

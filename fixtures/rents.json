@@ -1,0 +1,16 @@
+[
+  {"primary": "blue", "secondary": "green", "value": 1},
+  {"primary": "blue", "secondary": "green", "value": 1},
+
+  {"primary": "brown", "secondary": "lightblue", "value": 1},
+  {"primary": "brown", "secondary": "lightblue", "value": 1},
+
+  {"primary": "pink", "secondary": "orange", "value": 1},
+  {"primary": "pink", "secondary": "orange", "value": 1},
+
+  {"primary": "rail", "secondary": "util", "value": 1},
+  {"primary": "rail", "secondary": "util", "value": 1},
+
+  {"primary": "red", "secondary": "yellow", "value": 1},
+  {"primary": "red", "secondary": "yellow", "value": 1}
+]

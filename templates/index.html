@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2>Welcome!</h2>
+<div id="log"></div>
+
+<form id="chat" action="">
+    <textarea id="message" rows="5" autocomplete="off"
+        name="message"></textarea>
+    <input type="submit" value="Submit" />
+</form>
+
+<h2>Your current hand:</h2>
+<div id="player_hand"></div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+<script type="text/javascript" src="{{ url_for( "static", filename="js/cards.js" ) }}"></script>
+<script type="text/javascript">
+    namespace = "/game"
+
+    var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+    socket.on('connect', function() {
+        socket.emit("user_connected", {data: "connected"})
+    });
+
+    socket.on("response", function(msg) {
+        $('#log').append('<br>' + msg.data);
+    });
+
+    socket.on("message", function(msg) {
+        $("#log").append("<br>" + msg);
+    });
+
+    socket.on("player_hand", function(msg) {
+        $.each(JSON.parse(msg), function(i, card) {
+            var new_card;
+            switch(card.type) {
+                case 1: // money
+                    new_card = $(moneyCard);
+                    $(".amount", new_card).html(card.value);
+                    break;
+                case 2: // property
+                    // check rent length
+                    if(card.rent.length == 2) {
+                        new_card = $(twoRentProperty);
+                    } else if (card.rent.length == 3) {
+                        new_card = $(threeRentProperty);
+                    } else if (card.rent.length == 4) {
+                        new_card = $(railsProperty);
+                    } else {
+                        break;
+                    }
+                    $("#title-div", new_card).html(card.name)
+                    $(".bank-value-inner > .amount", new_card).html(card.value);
+
+                    // colourize
+                    $(".set-count-card-top", new_card).css("background-color", card.colour_code);
+                    $(".title", new_card).css("background-color", card.colour_code);
+
+                    for(i = 0; i < card.rent.length; i++) {
+                        $("div.rent-rate:eq(" + i + ") > .amount", new_card).html(card.rent[i])
+                    }
+                    break;
+                case 3: // action
+                    new_card = $(actionCard);
+                    $(".amount", new_card).html(card.value);
+                    $("#title", new_card).html(card.name);
+                    $("#desc", new_card).prepend(card.description);
+                    break;
+                case 4: // rent
+                    new_card = $(rentCard);
+                    $(".amount", new_card).html(card.value);
+                    break;
+                    case 5:
+            }
+            $("#player_hand").append(new_card);
+        });
+    });
+
+    $("form#chat").submit(function(event) {
+        socket.emit("message", {data: $("#message").val()})
+        $("#message").val("");
+        return false;
+    });
+
+</script>
+{% endblock %}

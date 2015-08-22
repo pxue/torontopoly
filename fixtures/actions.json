@@ -1,0 +1,12 @@
+[
+  {"type": "dealbreaker", "name": "deal breaker", "desc": "<div>Steal a complete set of properties from any player.</div><div>(include any buildings.)</div>", "value": 5, "count": 2},
+  {"type": "debtcollector", "name": "debt collector", "desc": "<div>Force any player</div><div>to pay you M5m.</div>", "value": 3, "count": 3},
+  {"type": "doublerent", "name": "double the rent!", "desc": "<div>Needs to be played</div><div>with a rent card.</div>", "value": 1, "count": 2},
+  {"type": "forced", "name": "fored deal", "value": 3, "desc": "<div>Swap any property</div><div>with another player</div><div>(Cannot be part of a full set.)</div>", "count": 4},
+  {"type": "house", "name": "house", "value": 3, "desc": "<div>Add onto any full set you own to add M3m to the rent value</div><div>(Except railroads and utilities)</div>", "count": 3},
+  {"type": "hotel", "name": "hotel", "value": 4, "count": 3, "desc": "<div>Add onto any full set you own to add M4m to the rent value</div><div>(Except railroads and utilities)</div>"},
+  {"type": "birthday", "name": "it's my birthday", "value": 2, "count": 3, "desc": "<div>All player give you M2m as a \"gift\".</div>"},
+  {"type": "sayno", "name": "just say no!", "value": 4, "count": 3, "desc": "<div>Use any time when an action card is played against you.</div>"},
+  {"type": "sly", "name": "sly deal", "value": 3, "count": 3, "desc": "<div>Steal a property from the player of your choice.</div><div>(Cannot be part of a full set.)</div>"},
+  {"type": "go", "name": "pass go", "value": 1, "count": 10, "desc": "<div>Draw 2 extra cards.</div>"}
+]
