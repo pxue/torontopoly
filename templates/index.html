@@ -2,7 +2,10 @@
 
 {% block body %}
 <h2>Welcome!</h2>
-<div id="log"></div>
+<div id="log">
+    <div id="players"></div>
+</div>
+
 
 <form id="chat" action="">
     <textarea id="message" rows="5" autocomplete="off"
@@ -15,6 +18,7 @@
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ url_for( "static", filename="js/cards.js" ) }}"></script>
 <script type="text/javascript">
     namespace = "/game"
@@ -22,6 +26,15 @@
     var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
     socket.on('connect', function() {
         socket.emit("user_connected", {data: "connected"})
+    });
+
+    socket.on("players", function(msg) {
+        tag = "";
+        $.each(JSON.parse(msg), function(i, p) {
+            tag += "<p>" + p.name + " | M" + p.money + "m | num of cards: " + p.cards + "</p>";
+            tag += "\t\t";
+        });
+        $("#players").html(tag);
     });
 
     socket.on("response", function(msg) {
@@ -35,6 +48,7 @@
     socket.on("player_hand", function(msg) {
         $.each(JSON.parse(msg), function(i, card) {
             var new_card;
+
             switch(card.type) {
                 case 1: // money
                     new_card = $(moneyCard);
@@ -72,8 +86,26 @@
                     new_card = $(rentCard);
                     $(".amount", new_card).html(card.value);
                     break;
-                    case 5:
+                case 5: // double property
+                    new_card = $(twoRentProperty);
+                    $(".amount", new_card).html(card.value);
+                    break;
+                case 6: // wild property
+                    new_card = $(twoRentProperty);
+                    break;
+                case 7: // wild rent
+                    new_card = $(rentCard);
+                    break;
             }
+
+            $(new_card).data({ "type": card.type, "index": i });
+
+            $(new_card).click(function(e) {
+                if (confirm("put this in the bank?")) {
+                    socket.emit("add_bank", $(this).data("index"));
+                    $(this).remove();
+                }
+            });
             $("#player_hand").append(new_card);
         });
     });

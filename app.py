@@ -1,11 +1,7 @@
-from gevent import monkey
-monkey.patch_all()
-
 import settings
 import time
 import ujson
 import uuid
-from threading import Thread
 
 from flask import (Flask, flash, make_response, \
         render_template, redirect, request,\
@@ -31,18 +27,39 @@ login_manager = LoginManager(app)
 
 # globals
 game = Game()
-thread = None
+
+@socketio.on("add_bank", namespace="/game")
+def on_add_bank(idx):
+
+    # add card to bank
+    card = current_user.hand.pop(int(idx))
+    current_user._bank.add(card)
+
+    # data on current players
+    emit("players", ujson.dumps([{
+            "name": p.name,
+            "money": p.money,
+            "cards": len(p.hand)
+        } for p in game.players]), json=True, broadcast=True)
+
 
 @socketio.on("user_connected", namespace="/game")
 def on_user_connected(message):
     if not current_user.is_anonymous():
-        send("{0} has connected".format(current_user.name), broadcast=True)
+        send("{0} has connected".format(current_user.name))
         join_room(current_user.id) # user's own channel
-        send("{0} player(s) have joined so far, start game?".format(game.nump))
+
+        # data on current players
+        emit("players", ujson.dumps([{
+                "name": p.name,
+                "money": p.money,
+                "cards": len(p.hand)
+            } for p in game.players]), json=True, broadcast=True)
         
-        if game._started:
+        if game._started and current_user.in_game:
             emit("player_hand", ujson.dumps(current_user.hand), json=True,
                     room=current_user.id)
+
 
 @socketio.on("message", namespace="/game")
 def on_message(message):
@@ -58,13 +75,19 @@ def on_message(message):
                 hand = ujson.dumps(game.get_player(token).hand)
                 emit("player_hand", hand, json=True, room=token)
 
+        # update player box with current data
+        emit("players", ujson.dumps([{
+                "name": p.name,
+                "money": p.money,
+                "cards": len(p.hand)
+            } for p in game.players]), json=True, broadcast=True)
+
     else:
         send("{0}: {1}".format(current_user.name, message["data"]), broadcast=True)
 
 
 @app.route("/")
 def index():
-
     if current_user.is_anonymous():
         resp = make_response(render_template("login.html"))
         resp.set_cookie("token", str(uuid.uuid4()))
@@ -78,6 +101,7 @@ def index():
 
 @app.route("/session", methods=["POST"])
 def session():
+    #TODO: fblogin
     name = request.form.get("name", "Player%d" % (len(game.players) + 1))
     token = request.cookies.get("token")
 
