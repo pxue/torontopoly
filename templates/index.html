@@ -6,17 +6,35 @@
     <div id="players"></div>
 </div>
 
-
 <form id="chat" action="">
     <textarea id="message" rows="5" autocomplete="off"
         name="message"></textarea>
     <input type="submit" value="Submit" />
 </form>
 
+<div id="cardOptions" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <h2>Your current hand:</h2>
 <div id="player_hand"></div>
 
-<script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{ url_for( "static", filename="js/cards.js" ) }}"></script>
@@ -101,10 +119,9 @@
             $(new_card).data({ "type": card.type, "index": i });
 
             $(new_card).click(function(e) {
-                if (confirm("put this in the bank?")) {
-                    socket.emit("add_bank", $(this).data("index"));
-                    $(this).remove();
-                }
+                $("#cardOptions").modal({})
+                //socket.emit("add_bank", $(this).data("index"));
+                //$(this).remove();
             });
             $("#player_hand").append(new_card);
         });
